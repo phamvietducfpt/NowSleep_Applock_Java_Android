@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.PVD.NowSleep">
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- <uses-permission android:name="android.permission.CAMERA"/> -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="SYSTEM_ALERT_WINDOW"/>
+    <application
+        android:name="com.PVD.NowSleep.LockApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:manageSpaceActivity="com.PVD.NowSleep.activities.main.IntroActivity"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.PVD.NowSleep.activities.main.SettimeActivity"
+            android:label="SettimeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+             />
+
+        <activity
+            android:name="com.PVD.NowSleep.activities.main.HomeActivity"
+            android:label="HomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+             />
+        <activity
+            android:name="com.PVD.NowSleep.activities.main.locktaskMode"
+            android:exported="false" />
+        <receiver
+            android:name="com.PVD.NowSleep.receiver.LockRestarterBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="RestartServiceWhenStopped" />
+
+        <activity
+            android:name="com.PVD.NowSleep.activities.main.IntroActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.PVD.NowSleep.activities.pwd.CreatePwdActivity"
+            android:label="Create Password"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.PVD.NowSleep.activities.lock.GestureCreateActivity"
+            android:label="Create and change password"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.PVD.NowSleep.activities.lock.GestureSelfUnlockActivity"
+            android:label="Unlock"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.PVD.NowSleep.activities.lock.GestureUnlockActivity"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/unlock_activity_style" />
+        <activity
+            android:name="com.PVD.NowSleep.activities.setting.LockSettingActivity"
+            android:label="Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.PVD.NowSleep.activities.about.AboutMeActivity"
+            android:label="About me"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.PVD.NowSleep.activities.main.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name="com.PVD.NowSleep.services.LoadAppListService" />
+        <service android:name="com.PVD.NowSleep.services.LockService" />
+        <receiver android:name="com.PVD.NowSleep.receiver.AlarmReceiver"
+            android:label="Alarm Clock"
+            />
+        <receiver android:name="com.PVD.NowSleep.receiver.AlarmFinish"
+            android:label="Alarm Clock"
+            />
+        <receiver
+            android:name="com.PVD.NowSleep.receiver.BootBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+<!--        <service-->
+<!--            android:name=".services.CountdownTimer"-->
+<!--           />-->
+        <receiver
+            android:name="com.PVD.NowSleep.widget.DeviceAdminService"
+            android:description="@string/app_name"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DEVICE_ADMIN"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_receiver"/>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
